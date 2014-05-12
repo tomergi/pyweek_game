@@ -2,6 +2,7 @@
 import pygame
 import tmx
 import enemy
+import sys
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, start_x, start_y, *groups):
@@ -76,11 +77,12 @@ class Player(pygame.sprite.Sprite):
             print 'im dead'
             break
 
-        for enemy in pygame.sprite.spritecollide(self, game.enemies, False):
-            if enemy.color == game.disabled_color:
+        for color, enemies in game.enemies_by_color.items():
+            if color == game.disabled_color:
                 continue
-            print 'im dead'
-            break
+            for enemy in pygame.sprite.spritecollide(self, enemies, False):
+                print 'im dead'
+                break
 
 
 class Game(object):
@@ -97,27 +99,51 @@ class Game(object):
         self.fps = fps
         self.disabled_color = ""
 
-        self.enemies = tmx.SpriteLayer()
+        self.enemies_red = tmx.SpriteLayer()
         try:
-            for enemy in self.level.layers['enemies']:
-                enemy.create_enemy(enemy['name'], enemy.px, enemy.py, enemy['color'], self.enemies)
+            for enemy_obj in self.level.layers['enemies'].match(color='red'):
+                enemy.create_enemy(enemy_obj['name'], enemy_obj.px, enemy_obj.py, enemy_obj['color'], self.enemies_red)
+        except Exception as e:
+            print e
+        self.enemies_green = tmx.SpriteLayer()
+        try:
+            for enemy_obj in self.level.layers['enemies'].match(color='green'):
+                enemy.create_enemy(enemy_obj['name'], enemy_obj.px, enemy_obj.py, enemy_obj['color'], self.enemies_green)
+        except Exception as e:
+            print e
+        self.enemies_blue = tmx.SpriteLayer()
+        try:
+            for enemy_obj in self.level.layers['enemies'].match(color='blue'):
+                enemy.create_enemy(enemy_obj['name'], enemy_obj.px, enemy_obj.py, enemy_obj['color'], self.enemies_blue)
+        except Exception as e:
+            print e
+        self.enemies_orange = tmx.SpriteLayer()
+        try:
+            for enemy_obj in self.level.layers['enemies'].match(color='orange'):
+                enemy.create_enemy(enemy_obj['name'], enemy_obj.px, enemy_obj.py, enemy_obj['color'], self.enemies_orange)
         except Exception as e:
             print e
 
-        self.level.layers.append(self.enemies)
+        self.level.layers.append(self.enemies_red)
+        self.level.layers.append(self.enemies_green)
+        self.level.layers.append(self.enemies_blue)
+        self.level.layers.append(self.enemies_orange)
+
+        self.enemies_by_color = {'red': self.enemies_red, 'green': self.enemies_green, 'blue': self.enemies_blue, 'orange': self.enemies_orange}
 
 
         self.screen = screen
 
     def loop(self):
-        while True:
+        running = True
+        while running:
             dt = self.clock.tick(self.fps) / 1000.0
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    return
+                    running = False
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                    return
+                    running = False
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_1:
@@ -141,11 +167,13 @@ class Game(object):
         visible = not self.level.layers[color].visible
         if self.disabled_color != "":
             self.level.layers[self.disabled_color].visible = True
+            self.enemies_by_color[self.disabled_color].visible = True
         self.level.layers[color].visible = visible
         if visible:
             self.disabled_color = ""
         else:
             self.disabled_color = color
+            self.enemies_by_color[color].visible = False
 
 def main():
     pygame.init()

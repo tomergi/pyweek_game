@@ -2,13 +2,14 @@ import pygame
 import tmx
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, *groups):
+    def __init__(self, color, *groups):
         super(Enemy, self).__init__(*groups)
 
         self.speed_x = 0
         self.speed_y = 0
         self.direction_x = 0
         self.direction_y = 0
+        self.color = color
 
     def move(self, dt):
         self.rect.x += self.speed_x * dt * self.direction_x
@@ -47,8 +48,8 @@ class Enemy(pygame.sprite.Sprite):
             break
 
 class SimpleEnemy(Enemy):
-    def __init__(self, x, y, *groups):
-        super(SimpleEnemy, self).__init__(*groups)
+    def __init__(self, color, x, y, *groups):
+        super(SimpleEnemy, self).__init__(color, *groups)
 
         self.image = pygame.Surface((28, 60))
         self.image.fill((200, 100, 250))
@@ -59,4 +60,4 @@ class SimpleEnemy(Enemy):
         self.direction_x = 1
 
 def create_enemy(name, x, y, color, *groups):
-    return SimpleEnemy(x, y, *groups)
+    return SimpleEnemy(color, x, y, *groups)
