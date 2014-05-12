@@ -19,6 +19,20 @@ class Player(pygame.sprite.Sprite):
         self.speed_x = 0
         self.direction = 0
 
+    def check_death(self, game):
+        for tile in game.level.layers['triggers'].collide(self.rect, 'death'):
+            color = tile['color']
+            if color == game.disabled_color:
+                continue
+            return True
+
+        for color, enemies in game.enemies_by_color.items():
+            if color == game.disabled_color:
+                continue
+            for enemy in pygame.sprite.spritecollide(self, enemies, False):
+                return True
+        return False
+
     def update(self, dt, game, *args):
         last = self.rect.copy()
 
@@ -48,18 +62,14 @@ class Player(pygame.sprite.Sprite):
                 colliding_side = True
 
             if last.right <= tile.left and self.rect.right > tile.left:
-                print 'colliding right'
                 self.rect.right = tile.left
             if last.left >= tile.right and self.rect.left < tile.right:
-                print 'colliding left'
                 self.rect.left = tile.right
             if last.bottom <= tile.top and self.rect.bottom > tile.top and not colliding_side:
-                print 'colliding bottom'
                 self.resting = True
                 self.rect.bottom = tile.top
                 self.speed_y = 0
             if last.top >= tile.bottom and self.rect.top < tile.bottom and not colliding_side:
-                print 'colliding top'
                 self.rect.top = tile.bottom
                 self.speed_y = 50
 
@@ -70,19 +80,7 @@ class Player(pygame.sprite.Sprite):
         else:
             self.speed_y = min((500, self.speed_y + 20))
 
-        for tile in game.level.layers['triggers'].collide(self.rect, 'death'):
-            color = tile['color']
-            if color == game.disabled_color:
-                continue
-            print 'im dead'
-            break
-
-        for color, enemies in game.enemies_by_color.items():
-            if color == game.disabled_color:
-                continue
-            for enemy in pygame.sprite.spritecollide(self, enemies, False):
-                print 'im dead'
-                break
+        self.dead = self.check_death(game)
 
 
 class Game(object):
@@ -159,6 +157,9 @@ class Game(object):
             self.level.update(dt, self)
             self.level.set_focus(self.player.rect.x, self.player.rect.y)
             self.level.draw(self.screen)
+
+            if self.player.dead:
+                print 'you are dead'
 
             pygame.display.flip()
 

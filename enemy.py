@@ -16,11 +16,13 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.y += self.speed_y * dt * self.direction_y
     
     def update(self, dt, game, *args):
+        if self.color == game.disabled_color and game.disabled_color != "":
+            return
         last = self.rect.copy()
 
         self.move(dt)
         for tile in game.level.layers['triggers'].collide(self.rect, 'reverse'):
-            if tile.color == game.disabled_color:
+            if game.disabled_color != "" and tile['color'] == game.disabled_color:
                 continue
             self.rect = last
             if 'x' in tile['reverse']:
@@ -30,7 +32,7 @@ class Enemy(pygame.sprite.Sprite):
             break
 
         for tile in game.level.layers['triggers'].collide(self.rect, 'move'):
-            if tile.color == game.disabled_color:
+            if game.disabled_color != "" and tile['color'] == game.disabled_color:
                 continue
             self.rect = last
             if 'left' == tile['move']:
@@ -56,8 +58,8 @@ class SimpleEnemy(Enemy):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.speed_x = 50
-        self.direction_x = 1
+        self.speed_x = 100
+        self.direction_x = -1
 
 def create_enemy(name, x, y, color, *groups):
     return SimpleEnemy(color, x, y, *groups)
