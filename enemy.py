@@ -5,16 +5,16 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self, color, *groups):
         super(Enemy, self).__init__(*groups)
 
-        self.speed_x = 0
-        self.speed_y = 0
-        self.direction_x = 0
-        self.direction_y = 0
         self.color = color
 
 
 class MovingEnemy(Enemy):
     def __init__(self, color, affected_by_triggers, *groups):
         super(MovingEnemy, self).__init__(color, *groups)
+        self.speed_x = 0
+        self.speed_y = 0
+        self.direction_x = 0
+        self.direction_y = 0
         self.affected_by_triggers = affected_by_triggers
 
     def move(self, dt):
@@ -87,6 +87,57 @@ class SimpleEnemy(MovingEnemy):
         self.rect.y = y
         self.speed_x = 100
         self.direction_x = -1
+
+class ShooterEnemy(Enemy):
+    def __init__(self, color, x, y, direction, cooldown, *groups):
+        super(ShooterEnemy, self).__init__(color, *groups)
+
+        self.enemy_groups = groups
+        self.direction = direction
+        self.time_since_last_shot = 0
+        self.cooldown = cooldown
+        
+    def update(self, dt, game, *args):
+        if self.color == game.disabled_color:
+            return
+
+        if self.time_since_last_shot + dt > self.cooldown:
+            self.shoot()
+
+    def shoot(self):
+        shot_x = 0
+        shot_y = 0
+        if self.direction == "up":
+            shot_x, shot_y = self.rect.midtop
+        elif self.direction == "down":
+            shot_x, shot_y = self.rect.midbottom
+        elif self.direction == "left":
+            shot_x, shot_y = self.rect.midleft
+        elif self.direction == "right":
+            shot_x, shot_y = self.rect.midright
+        else:
+            print 'must set shotter direction properly'
+            return
+        BulletEnemy(self.color, shot_x, shot_y, direction, self.enemy_groups)
+
+class BulletEnemy(MovingEnemy):
+    def __init__(self, color, x, y, direction, *groups):
+        super(BulletEnemy, self).__init__(color, False, *groups)
+
+        self.speed_x = 50
+        self.speed_y = 50
+        if direction == "up":
+            self.direction_x = 0 
+            self.direction_y = -1
+        elif direction == "down":
+            self.direction_x = 0
+            self.direction_y = 1
+        elif self.direction == "left":
+            self.direction_x = -1
+            self.direction_y = 0
+        elif direction == "right":
+            self.direction_x = 1
+            self.direction_y = 0
 
 def create_enemy(name, x, y, color, *groups):
     return SimpleEnemy(color, x, y, *groups)
