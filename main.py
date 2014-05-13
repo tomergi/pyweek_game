@@ -100,25 +100,25 @@ class Game(object):
         self.enemies_red = tmx.SpriteLayer()
         try:
             for enemy_obj in self.level.layers['enemies'].match(color='red'):
-                enemy.create_enemy(enemy_obj['name'], enemy_obj.px, enemy_obj.py, enemy_obj['color'], self.enemies_red)
+                enemy.create_enemy(enemy_obj, self.enemies_red)
         except Exception as e:
             print e
         self.enemies_green = tmx.SpriteLayer()
         try:
             for enemy_obj in self.level.layers['enemies'].match(color='green'):
-                enemy.create_enemy(enemy_obj['name'], enemy_obj.px, enemy_obj.py, enemy_obj['color'], self.enemies_green)
+                enemy.create_enemy(enemy_obj, self.enemies_green)
         except Exception as e:
             print e
         self.enemies_blue = tmx.SpriteLayer()
         try:
             for enemy_obj in self.level.layers['enemies'].match(color='blue'):
-                enemy.create_enemy(enemy_obj['name'], enemy_obj.px, enemy_obj.py, enemy_obj['color'], self.enemies_blue)
+                enemy.create_enemy(enemy_obj, self.enemies_blue)
         except Exception as e:
             print e
         self.enemies_orange = tmx.SpriteLayer()
         try:
             for enemy_obj in self.level.layers['enemies'].match(color='orange'):
-                enemy.create_enemy(enemy_obj['name'], enemy_obj.px, enemy_obj.py, enemy_obj['color'], self.enemies_orange)
+                enemy.create_enemy(enemy_obj, self.enemies_orange)
         except Exception as e:
             print e
 
