@@ -4,6 +4,8 @@ import tmx
 import enemy
 import sys
 import flag
+import kezmenu
+import time
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, start_x, start_y, *groups):
@@ -172,7 +174,8 @@ class Game(object):
             self.level.draw(self.screen)
 
             if self.player.dead:
-                print 'you are dead'
+                time.sleep(1)
+                return
             if self.player.win:
                 print 'you won'
 
@@ -191,13 +194,33 @@ class Game(object):
             self.disabled_color = color
             self.enemies_by_color[color].visible = False
 
+def run_game(screen, screen_size):
+    game = Game('level-0.tmx', screen_size, screen)
+    game.loop()
+
+
+def quit():
+    pygame.quit()
+    sys.exit(1)
 def main():
     pygame.init()
     screen_size = (640, 480)
     screen = pygame.display.set_mode(screen_size)
+    option_selected = None
+    menu = kezmenu.KezMenu(["Start", lambda: run_game(screen, screen_size)],
+                            ["Quit", quit])
+    menu.mouse_enabled=False
+    while True:
+        events = pygame.event.get()
+        menu.update(events)
+        screen.fill((255,255,255))
+        menu.draw(screen)
+        pygame.display.flip()
+        if option_selected is not None:
+            break
 
-    game = Game('level-0.tmx', screen_size, screen)
-    game.loop()
+    print option_selected
+
 
 if __name__ == '__main__':
     main()
