@@ -198,6 +198,33 @@ def run_game(screen, screen_size):
     game = Game('level-0.tmx', screen_size, screen)
     game.loop()
 
+def display_instructions(screen):
+    font = pygame.font.Font(None, 30)
+    text = """Objective:
+Reach to the flag in every level.
+
+Controls:
+Use arrow keys to move, space to jump.
+Numbers 1-4 toggle colors.
+press Esc at any time to return to menu.
+
+Press <space> to return""".splitlines()
+    rendered = [font.render(i, 1, (0, 0, 0)) for i in text]
+    screen.fill((255, 255, 255))
+    for y, label in enumerate(rendered):
+        screen.blit(label, (0, y * font.get_linesize()))
+    pygame.display.flip()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                return
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    return
+
 
 def quit():
     pygame.quit()
@@ -208,6 +235,7 @@ def main():
     screen = pygame.display.set_mode(screen_size)
     option_selected = None
     menu = kezmenu.KezMenu(["Start", lambda: run_game(screen, screen_size)],
+            ["Instructions", lambda: display_instructions(screen)],
                             ["Quit", quit])
     menu.mouse_enabled=False
     while True:
