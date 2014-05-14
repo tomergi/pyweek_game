@@ -3,6 +3,7 @@ import pygame
 import tmx
 import enemy
 import sys
+import flag
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, start_x, start_y, *groups):
@@ -18,6 +19,7 @@ class Player(pygame.sprite.Sprite):
         self.speed_y = 0
         self.speed_x = 0
         self.direction = 0
+        self.win = False
 
     def check_death(self, game):
         for tile in game.level.layers['triggers'].collide(self.rect, 'death'):
@@ -31,6 +33,11 @@ class Player(pygame.sprite.Sprite):
                 continue
             for enemy in pygame.sprite.spritecollide(self, enemies, False):
                 return True
+        return False
+
+    def check_win(self, game):
+        for tile in pygame.sprite.spritecollide(self, game.flag_layer, False):
+            return True
         return False
 
     def update(self, dt, game, *args):
@@ -81,6 +88,7 @@ class Player(pygame.sprite.Sprite):
             self.speed_y = min((500, self.speed_y + 20))
 
         self.dead = self.check_death(game)
+        self.win = self.check_win(game)
 
 
 class Game(object):
@@ -92,6 +100,11 @@ class Game(object):
         self.sprite_layer = tmx.SpriteLayer()
         self.player = Player(spawn.px, spawn.py, self.sprite_layer)
         self.level.layers.append(self.sprite_layer)
+
+        self.flag_layer = tmx.SpriteLayer()
+        flag_sprite = flag.Flag(self.level.layers['triggers'].find('win')[0], self.flag_layer)
+        self.level.layers.append(self.flag_layer)
+
 
         self.clock = pygame.time.Clock()
         self.fps = fps
@@ -160,6 +173,8 @@ class Game(object):
 
             if self.player.dead:
                 print 'you are dead'
+            if self.player.win:
+                print 'you won'
 
             pygame.display.flip()
 

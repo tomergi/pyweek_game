@@ -12,7 +12,7 @@
   </tile>
   <tile id="1">
    <properties>
-    <property name="end" value=""/>
+    <property name="win" value=""/>
    </properties>
   </tile>
  </tileset>
@@ -79,7 +79,7 @@
    </properties>
   </object>
   <object name="spawn" gid="25" x="64" y="1184"/>
-  <object name="end" gid="26" x="2144" y="1216"/>
+  <object name="end" gid="26" x="2144" y="1184"/>
   <object name="blocker" x="2208" y="0" width="32" height="1600">
    <properties>
     <property name="blocker" value="true"/>
