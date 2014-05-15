@@ -43,7 +43,7 @@ class Player(pygame.sprite.Sprite):
         return False
 
     def update(self, dt, game, *args):
-        last = self.rect.copy()
+        previous_rect = self.rect.copy()
 
         self.rect.x += self.speed_x * dt * self.direction
         self.rect.y += self.speed_y * dt
@@ -59,29 +59,13 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT]:
             self.speed_x = 0
             self.direction = 0
-
-
-        for tile in game.level.layers['triggers'].collide(self.rect, 'blocker'):
-            colliding_side = False
-            color = tile['color']
-            if color == game.disabled_color and color != "":
-                continue
-
-            if self.rect.right == tile.left or self.rect.left == tile.right:
-                colliding_side = True
-
-            if last.right <= tile.left and self.rect.right > tile.left:
-                self.rect.right = tile.left
-            if last.left >= tile.right and self.rect.left < tile.right:
-                self.rect.left = tile.right
-            if last.bottom <= tile.top and self.rect.bottom > tile.top and not colliding_side:
-                self.resting = True
-                self.rect.bottom = tile.top
-                self.speed_y = 0
-            if last.top >= tile.bottom and self.rect.top < tile.bottom and not colliding_side:
-                self.rect.top = tile.bottom
-                self.speed_y = 50
-
+        
+        # re-calculating is done each time to avoid "sticky cells".
+        if len(self.get_enabled_colliding_cells(game)) != 0:
+            self.handle_right_collision_if_occurred(previous_rect, self.get_enabled_colliding_cells(game))
+            self.handle_left_collision_if_occurred(previous_rect, self.get_enabled_colliding_cells(game))
+            self.handle_bottom_collision_if_occurred(previous_rect, self.get_enabled_colliding_cells(game))
+            self.handle_top_collision_if_occurred(previous_rect, self.get_enabled_colliding_cells(game))
 
         if self.resting and keys[pygame.K_SPACE]:
             self.resting = False
@@ -92,7 +76,52 @@ class Player(pygame.sprite.Sprite):
         self.dead = self.check_death(game)
         self.win = self.check_win(game)
 
-
+    
+    def handle_right_collision_if_occurred(self, previous_rect, cells):
+        colliding_cells = filter((lambda cell: ((previous_rect.right < cell.left) and 
+                                                (self.rect.right >= cell.left))), cells)
+        if (len(colliding_cells) == 0):
+            return
+        left_ends = map((lambda cell: cell.left), colliding_cells)
+        min_left_end = min(left_ends)
+        self.rect.right = min_left_end - 1
+        
+    def handle_left_collision_if_occurred(self, previous_rect, cells):
+        colliding_cells = filter((lambda cell: ((previous_rect.left > cell.right) and 
+                                                (self.rect.left <= cell.right))), cells)
+        if (len(colliding_cells) == 0):
+            return
+        right_ends = map((lambda cell: cell.right), colliding_cells)
+        max_right_end = max(right_ends)
+        self.rect.left = max_right_end + 1
+    
+    def handle_bottom_collision_if_occurred(self, previous_rect, cells):
+        colliding_cells = filter((lambda cell: ((previous_rect.bottom < cell.top) and 
+                                                (self.rect.bottom >= cell.top))), cells)
+        if (len(colliding_cells) == 0):
+            return
+        top_ends = map((lambda cell: cell.top), colliding_cells)
+        min_top_end = min(top_ends)
+        self.rect.bottom = min_top_end - 1
+        
+        self.resting = True
+        self.speed_y = 0
+        
+    def handle_top_collision_if_occurred(self, previous_rect, cells):
+        colliding_cells = filter((lambda cell: ((previous_rect.top > cell.bottom) and 
+                                                (self.rect.top <= cell.bottom))), cells)
+        if (len(colliding_cells) == 0):
+            return
+        bottom_ends = map((lambda cell: cell.bottom), colliding_cells)
+        max_bottom_end = max(bottom_ends)
+        self.rect.top = max_bottom_end + 1
+        
+        self.speed_y = 50
+    
+    def get_enabled_colliding_cells(self, game):
+        cells = game.level.layers['triggers'].collide(self.rect, 'blocker')
+        return filter((lambda cell: cell['color'] != game.disabled_color or cell['color'] == ""), cells)
+        
 class Game(object):
 
     def __init__(self, level_path, screen_size, screen, fps=60):
