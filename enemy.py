@@ -21,7 +21,10 @@ class MovingEnemy(Enemy):
         self.groups = groups
 
     def move(self, dt):
-        self.rect.x += self.speed_x * dt * self.direction_x
+        move_addition = self.rect.width
+        if self.direction_x < 0:
+            move_addition = 0
+        self.rect.x += (self.speed_x + move_addition) * dt * self.direction_x
         self.rect.y += self.speed_y * dt * self.direction_y
     
     def update(self, dt, game, *args):
