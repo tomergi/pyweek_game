@@ -64,7 +64,7 @@ class Player(pygame.sprite.Sprite):
         for tile in game.level.layers['triggers'].collide(self.rect, 'blocker'):
             colliding_side = False
             color = tile['color']
-            if color == game.disabled_color:
+            if color == game.disabled_color and color != "":
                 continue
 
             if self.rect.right == tile.left or self.rect.left == tile.right:
@@ -195,7 +195,7 @@ class Game(object):
             self.enemies_by_color[color].visible = False
 
 def run_game(screen, screen_size):
-    game = Game('level-0.tmx', screen_size, screen)
+    game = Game('level-1.tmx', screen_size, screen)
     game.loop()
 
 def display_instructions(screen):
