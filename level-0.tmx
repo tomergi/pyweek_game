@@ -3,19 +3,7 @@
  <tileset firstgid="1" name="basic_tileset" tilewidth="32" tileheight="32">
   <image source="resources/tileset.png" width="128" height="192"/>
  </tileset>
- <tileset firstgid="25" name="triggers" tilewidth="32" tileheight="32">
-  <image source="resources/triggers.png" width="128" height="64"/>
-  <tile id="0">
-   <properties>
-    <property name="spawn" value=""/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="win" value=""/>
-   </properties>
-  </tile>
- </tileset>
+ <tileset firstgid="25" source="triggers.tsx"/>
  <layer name="level" width="70" height="50">
   <data encoding="base64" compression="zlib">
    eJzt2jEKACEQBMEN/f+L5cKDjtSwCiYV7HjXzCzL8adL06Xp0nRpujRdmi5Nl6ZL06Xp0nRpujRdmi5Nl6ZL06Xp0nRpujRdmi5Nl6ZL06Xp0nRpujRdmi5Nl6ZL06Xp0nRpL+4VX945nr5x+w8zMzMzM7NvG3IkHnE=
@@ -153,12 +141,10 @@
     <property name="name" value="mover"/>
    </properties>
   </object>
-  <object name="shooter" gid="28" x="416" y="992">
+  <object name="shooter" gid="29" x="416" y="1024">
    <properties>
     <property name="color" value="green"/>
     <property name="cooldown" value="1"/>
-    <property name="direction" value="down"/>
-    <property name="name" value="shooter"/>
    </properties>
   </object>
  </objectgroup>
