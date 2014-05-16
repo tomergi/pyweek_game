@@ -156,7 +156,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#ff0000" name="triggers" width="60" height="25">
-  <object name="spawn" gid="25" x="896" y="544"/>
+  <object name="spawn" gid="25" x="768" y="96"/>
   <object name="move_up" gid="35" x="256" y="768"/>
   <object name="move_left" gid="34" x="256" y="544"/>
   <object name="move_left" gid="34" x="224" y="544"/>
