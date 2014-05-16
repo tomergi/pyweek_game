@@ -207,13 +207,15 @@ class Game(object):
             self.level.set_focus(self.player.rect.x, self.player.rect.y)
             self.level.draw(self.screen)
 
+            pygame.display.flip()
             if self.player.dead:
                 time.sleep(1)
-                return
+                return False
             if self.player.win:
-                print 'you won'
+                time.sleep(1)
+                return True
 
-            pygame.display.flip()
+        raise Exception("game exit")
 
     def toggle_layer(self, color):
         print "toggling %s" % color
@@ -228,9 +230,15 @@ class Game(object):
             self.disabled_color = color
             self.enemies_by_color[color].visible = False
 
-def run_game(screen, screen_size):
-    game = Game('level-15.tmx', screen_size, screen)
-    game.loop()
+def run_game(screen, screen_size, start_level=1):
+    level = start_level
+    win = True
+    while True:
+        game = Game('level-%d.tmx' % level, screen_size, screen)
+        win = game.loop()
+        if win:
+            level += 1
+    
 
 def display_instructions(screen):
     font = pygame.font.Font(None, 30)
