@@ -27,7 +27,7 @@
    eJzt1bENACAMA8GILuw/MEqXBQIUd9L37hwBAAAAc3YLgH+s1wMuqx/KFkw4gvcARg==
   </data>
  </layer>
- <objectgroup color="#ff0000" name="triggers" width="60" height="25">
+ <objectgroup color="#ff0000" name="triggers" width="60" height="25" visible="0">
   <object name="flag" gid="26" x="736" y="736"/>
   <object name="spawn" gid="25" x="160" y="736"/>
   <object name="move_down" gid="36" x="864" y="384"/>
@@ -130,7 +130,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="enemies" width="60" height="25">
+ <objectgroup name="enemies" width="60" height="25" visible="0">
   <object name="shooter_green" gid="30" x="352" y="672">
    <properties>
     <property name="color" value="green"/>
