@@ -22,8 +22,11 @@ class Player(pygame.sprite.Sprite):
         self.speed_x = 0
         self.direction = 0
         self.win = False
+        self.god = False
 
     def check_death(self, game):
+        if self.god:
+            return False
         for tile in game.level.layers['triggers'].collide(self.rect, 'death'):
             color = tile['color']
             if color == game.disabled_color:
@@ -186,6 +189,8 @@ class Game(object):
                     running = False
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     running = False
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_F10:
+                    self.player.god = not self.player.god
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_1:
@@ -224,7 +229,7 @@ class Game(object):
             self.enemies_by_color[color].visible = False
 
 def run_game(screen, screen_size):
-    game = Game('level-1.tmx', screen_size, screen)
+    game = Game('level-15.tmx', screen_size, screen)
     game.loop()
 
 def display_instructions(screen):
@@ -246,7 +251,7 @@ Press <space> to return""".splitlines()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                quit()
+                return
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 return
 
