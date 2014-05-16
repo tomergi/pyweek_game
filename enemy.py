@@ -66,7 +66,7 @@ class MovingEnemy(Enemy):
         for tile in game.level.layers['triggers'].collide(self.rect, 'blocker'):
             colliding_side = False
             color = tile['color']
-            if color == game.disabled_color:
+            if color == game.disabled_color and color != "":
                 continue
 
             if self.rect.right == tile.left or self.rect.left == tile.right:
