@@ -21,11 +21,14 @@ class MovingEnemy(Enemy):
         self.groups = groups
 
     def move(self, dt):
-        move_addition = self.rect.width
+        move_addition_x = self.rect.width
+        move_addition_y = self.rect.height
+        if self.direction_y < 0:
+            move_addition_y = 0
         if self.direction_x < 0:
-            move_addition = 0
-        self.rect.x += (self.speed_x + move_addition) * dt * self.direction_x
-        self.rect.y += self.speed_y * dt * self.direction_y
+            move_addition_x = 0
+        self.rect.x += (self.speed_x + move_addition_x) * dt * self.direction_x
+        self.rect.y += (self.speed_y + move_addition_y) * dt * self.direction_y
     
     def update(self, dt, game, *args):
         if self.color == game.disabled_color and game.disabled_color != "":
@@ -46,9 +49,6 @@ class MovingEnemy(Enemy):
                 break
 
             for tile in game.level.layers['triggers'].collide(self.rect, 'move'):
-                if game.disabled_color != "" and tile['color'] == game.disabled_color:
-                    continue
-                self.rect = last
                 if 'left' == tile['move']:
                     self.direction_x = -1
                     self.direction_y = 0
@@ -95,6 +95,7 @@ class SimpleEnemy(MovingEnemy):
         self.rect.x = x
         self.rect.y = y
         self.speed_x = 100
+        self.speed_y = 100
         self.direction_x = -1
 
 class ShooterEnemy(Enemy):
@@ -161,14 +162,14 @@ class BulletEnemy(MovingEnemy):
         elif direction == "down":
             self.direction_x = 0
             self.direction_y = 1
-        elif self.direction == "left":
+        elif direction == "left":
             self.direction_x = -1
             self.direction_y = 0
         elif direction == "right":
             self.direction_x = 1
             self.direction_y = 0
         else:
-            print 'no direction for bullet'
+            print 'no direction for bullet, direction: %s' % direction
 
 def create_enemy(enemy_obj, *groups):
     print 'creating enemy', enemy_obj
