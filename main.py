@@ -233,18 +233,14 @@ class Game(object):
                 time.sleep(1)
                 return True
 
-<<<<<<< HEAD
         raise Exception("game exit")
     
     def display_full_screen_picture(self, image_name):
         image = pygame.image.load(os.path.join('resources', image_name))
         image_location = (self.level.view_x, self.level.view_y)
         self.screen.blit(image, image_location)
+        pygame.display.flip()
         
-        
-=======
->>>>>>> 3c573ae62d3c44ca174ebfc434b9078a13b6d132
-
     def toggle_layer(self, color):
         print "toggling %s" % color
         visible = not self.level.layers[color].visible
