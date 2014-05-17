@@ -291,6 +291,10 @@ def main():
     #pygame.mixer.music.play(-1)
     screen_size = (640, 480)
     screen = pygame.display.set_mode(screen_size)
+    
+    pixelated_troll = pygame.image.load(os.path.join('resources', 'troll_menu.jpg'))
+    pixelated_troll_location = (screen_size[0] - pixelated_troll.get_rect().width, 0)
+    
     option_selected = None
     menu = kezmenu.KezMenu(["Start", lambda: run_game(screen, screen_size, start_level=start_level)],
             ["Instructions", lambda: display_instructions(screen)],
@@ -300,6 +304,7 @@ def main():
         events = pygame.event.get()
         menu.update(events)
         screen.fill((255,255,255))
+        screen.blit(pixelated_troll, pixelated_troll_location)
         menu.draw(screen)
         pygame.display.flip()
         if option_selected is not None:
