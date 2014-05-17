@@ -272,11 +272,14 @@ def quit():
     pygame.quit()
     sys.exit(1)
 def main():
+    start_level = 0
+    if len(sys.argv) > 1:
+        start_level = int(sys.argv[1])
     pygame.init()
     screen_size = (640, 480)
     screen = pygame.display.set_mode(screen_size)
     option_selected = None
-    menu = kezmenu.KezMenu(["Start", lambda: run_game(screen, screen_size)],
+    menu = kezmenu.KezMenu(["Start", lambda: run_game(screen, screen_size, start_level=start_level)],
             ["Instructions", lambda: display_instructions(screen)],
                             ["Quit", quit])
     menu.mouse_enabled=False
