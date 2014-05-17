@@ -299,6 +299,7 @@ def main():
     menu = kezmenu.KezMenu(["Start", lambda: run_game(screen, screen_size, start_level=start_level)],
             ["Instructions", lambda: display_instructions(screen)],
                             ["Quit", quit])
+    menu.center_at(screen_size[0] / 2, screen_size[1] / 2)
     menu.mouse_enabled=False
     while True:
         events = pygame.event.get()
