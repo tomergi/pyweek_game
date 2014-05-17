@@ -218,13 +218,22 @@ class Game(object):
 
             pygame.display.flip()
             if self.player.dead:
+                self.display_full_screen_picture("you-lose.png")
                 time.sleep(1)
                 return False
             if self.player.win:
+                self.display_full_screen_picture("you-win.png")
                 time.sleep(1)
                 return True
 
         raise Exception("game exit")
+    
+    def display_full_screen_picture(self, image_name):
+        image = pygame.image.load(os.path.join('resources', image_name))
+        image_location = (self.level.view_x, self.level.view_y)
+        self.screen.blit(image, image_location)
+        
+        
 
     def toggle_layer(self, color):
         print "toggling %s" % color
