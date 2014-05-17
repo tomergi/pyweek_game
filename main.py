@@ -281,6 +281,7 @@ def quit():
     pygame.quit()
     sys.exit(1)
 def main():
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     start_level = 0
     if len(sys.argv) > 1:
         start_level = int(sys.argv[1])
