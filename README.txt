@@ -2,7 +2,7 @@ Who Wrote The Code:
 The code was written by Tomer Gilad (tomerg) and Yaron Kaner (YaronK)
 
 Who Created The Artwork:
-Most artwork was done by Tomer. Troll artwork by Yasmin.
+Artwork by Tomer and yaron
 
 How To Run The Game:
 From the command line run "python main.py"
