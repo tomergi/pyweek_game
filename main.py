@@ -317,7 +317,7 @@ def main():
     screen_size = (640, 480)
     pygame.display.set_icon(pygame.image.load(os.path.join("resources", "troll_icon.png")))
     screen = pygame.display.set_mode(screen_size)
-    pygame.display.set_caption("Color Blind")
+    pygame.display.set_caption("Selective Color Blindness")
     
     pixelated_troll = pygame.image.load(os.path.join('resources', 'troll_menu.jpg'))
     pixelated_troll_location = (screen_size[0] - pixelated_troll.get_rect().width, 0)
