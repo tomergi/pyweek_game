@@ -6,13 +6,15 @@ import sys
 import flag
 import kezmenu
 import time
+import color_display
+import os
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, start_x, start_y, *groups):
         super(Player, self).__init__(*groups)
         
-        self.image = pygame.Surface((28, 60))
-        self.image.fill((200, 200, 200))
+        self.image = pygame.image.load(os.path.join('resources', 'troll.png'))
+        
         self.rect = self.image.get_rect()
         self.rect.x = start_x
         self.rect.y = start_y
@@ -139,7 +141,6 @@ class Game(object):
         flag_sprite = flag.Flag(self.level.layers['triggers'].find('win')[0], self.flag_layer)
         self.level.layers.append(self.flag_layer)
 
-
         self.clock = pygame.time.Clock()
         self.fps = fps
         self.disabled_color = ""
@@ -176,7 +177,8 @@ class Game(object):
 
         self.enemies_by_color = {'red': self.enemies_red, 'green': self.enemies_green, 'blue': self.enemies_blue, 'orange': self.enemies_orange}
 
-
+        self.color_display = color_display.ColorDisplay(screen, self.level)
+        
         self.screen = screen
 
     def loop(self):
@@ -195,16 +197,23 @@ class Game(object):
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_1:
                         self.toggle_layer("red")
+                        self.color_display.change_color("red")
                     elif event.key == pygame.K_2:
                         self.toggle_layer("green")
+                        self.color_display.change_color("green")
                     elif event.key == pygame.K_3:
                         self.toggle_layer("blue")
+                        self.color_display.change_color("blue")
                     elif event.key == pygame.K_4:
                         self.toggle_layer("orange")
+                        self.color_display.change_color("orange")
 
             self.screen.fill((0,0,0))
             self.level.update(dt, self)
             self.level.set_focus(self.player.rect.x, self.player.rect.y)
+            
+            self.color_display.print_on_screen()
+            
             self.level.draw(self.screen)
 
             pygame.display.flip()
