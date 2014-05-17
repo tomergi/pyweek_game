@@ -1,126 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="70" height="50" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32" backgroundcolor="#000000">
  <tileset firstgid="1" source="basic_tileset.tsx"/>
  <tileset firstgid="25" source="triggers.tsx"/>
- <layer name="level" width="70" height="50">
+ <layer name="level" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt2jEKACEQBMEN/f+L5cKDjtSwCiYV7HjXzCzL8adL06Xp0nRpujRdmi5Nl6ZL06Xp0nRpujRdmi5Nl6ZL06Xp0nRpujRdmi5Nl6ZL06Xp0nRpujRdmi5Nl6ZL06Xp0nRpL+4VX945nr5x+w8zMzMzM7NvG3IkHnE=
+   eJzjYWBg4KEyphYYNQ834IDiUfOGlnkceDAh8/DpJcZMSs3CZSYlZpGKAemoBEE=
   </data>
  </layer>
- <layer name="orange" width="70" height="50">
+ <layer name="red" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJztzjEJAAAMA7Ay/6JnotAnUZAEAAAAAAAAAAAAgJVbBwAAAIoeUHgAAw==
+   eJxjYBgFo2AUDAbAioRHAXYAABWQABA=
   </data>
  </layer>
- <layer name="red" width="70" height="50">
+ <layer name="green" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJztw7EJAAAIA7D6/9Ne0FmEBJIAAAAAAAAAAAAA8M2UAAAAlxaCfAAH
+   eJxjYBgFo2AUDFYgjIRHAQMDAEBcADo=
   </data>
  </layer>
- <layer name="blue" width="70" height="50">
+ <layer name="blue" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt0DEKACEUQ8F/AfX+t5UFK0kpusVMkza8KgAAAAAAAAAA4La2djx98T+6ZLpkumS6ZF+XXrrsdAEAAE6boSsA4Q==
+   eJxjYBgFIw3wj5o3qMwbBcQDAKLkAEw=
   </data>
  </layer>
- <layer name="green" width="70" height="50">
+ <layer name="orange" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt0DERAAAIAzE04F8sBrqXIVHw9zMAAAAAAAAAAEDDtgOe8iXzJfMl8wUAAICWAxvyAFs=
+   eJxjYBgFowA34B41b1CZN9IBAG9AADg=
   </data>
  </layer>
- <objectgroup color="#ff007f" name="triggers" width="70" height="50" visible="0">
-  <object name="spike" x="480" y="1216" width="32" height="32">
+ <objectgroup color="#ff0000" name="triggers" width="20" height="15" visible="0">
+  <object gid="25" x="64" y="320"/>
+  <object gid="26" x="576" y="320"/>
+  <object name="wall_orange" x="512" y="192" width="32" height="160">
    <properties>
+    <property name="blocker" value=""/>
     <property name="color" value="orange"/>
-    <property name="death" value="true"/>
    </properties>
   </object>
-  <object name="spike" x="928" y="1216" width="192" height="32">
+  <object name="wall_blue" x="160" y="192" width="32" height="160">
    <properties>
+    <property name="blocker" value=""/>
+    <property name="color" value="blue"/>
+   </properties>
+  </object>
+  <object name="wall_red" x="224" y="352" width="96" height="32">
+   <properties>
+    <property name="blocker" value=""/>
     <property name="color" value="red"/>
-    <property name="death" value="true"/>
    </properties>
   </object>
-  <object name="blocker" x="1472" y="1024" width="32" height="224">
+  <object name="wall_green" x="384" y="352" width="96" height="32">
    <properties>
     <property name="blocker" value=""/>
-    <property name="color" value="blue"/>
-   </properties>
-  </object>
-  <object name="blocker" x="1504" y="1184" width="32" height="64">
-   <properties>
-    <property name="blocker" value=""/>
-    <property name="color" value="blue"/>
-   </properties>
-  </object>
-  <object name="blocker" x="1536" y="1024" width="32" height="224">
-   <properties>
-    <property name="blocker" value="true"/>
-    <property name="color" value="blue"/>
-   </properties>
-  </object>
-  <object name="blocker" x="1504" y="1024" width="32" height="160">
-   <properties>
-    <property name="blocker" value="true"/>
     <property name="color" value="green"/>
    </properties>
   </object>
-  <object name="spawn" gid="25" x="64" y="1184"/>
-  <object name="end" gid="26" x="2144" y="1184"/>
-  <object name="blocker" x="2208" y="0" width="32" height="1600">
+  <object name="blocker" x="0" y="0" width="640" height="32">
    <properties>
-    <property name="blocker" value="true"/>
-    <property name="color" value="white"/>
+    <property name="blocker" value=""/>
+    <property name="color" value=""/>
    </properties>
   </object>
-  <object name="blocker" x="32" y="0" width="2176" height="32">
+  <object name="blocker" x="0" y="448" width="640" height="32">
    <properties>
-    <property name="blocker" value="true"/>
-    <property name="color" value="white"/>
+    <property name="blocker" value=""/>
+    <property name="color" value=""/>
    </properties>
   </object>
-  <object name="blocker" x="0" y="0" width="32" height="1600">
+  <object name="blocker" x="0" y="0" width="32" height="480">
    <properties>
-    <property name="blocker" value="true"/>
-    <property name="color" value="white"/>
+    <property name="blocker" value=""/>
+    <property name="color" value=""/>
    </properties>
   </object>
-  <object name="blocker" x="32" y="1248" width="2176" height="352">
+  <object name="blocker" x="608" y="0" width="32" height="480">
    <properties>
-    <property name="blocker" value="true"/>
-    <property name="color" value="white"/>
+    <property name="blocker" value=""/>
+    <property name="color" value=""/>
    </properties>
   </object>
-  <object name="blocker" x="32" y="1216" width="448" height="32">
+  <object name="blocker" x="320" y="160" width="64" height="224">
    <properties>
-    <property name="blocker" value="true"/>
-    <property name="color" value="white"/>
+    <property name="blocker" value=""/>
+    <property name="color" value=""/>
    </properties>
   </object>
-  <object name="blocker" x="512" y="1216" width="416" height="32">
+  <object name="blocker" x="480" y="352" width="160" height="96">
    <properties>
-    <property name="blocker" value="true"/>
-    <property name="color" value="white"/>
+    <property name="blocker" value=""/>
+    <property name="color" value=""/>
    </properties>
   </object>
-  <object name="blocker" x="1120" y="1216" width="352" height="32">
+  <object name="blocker" x="32" y="352" width="192" height="96">
    <properties>
-    <property name="blocker" value="true"/>
-    <property name="color" value="white"/>
+    <property name="blocker" value=""/>
+    <property name="color" value=""/>
    </properties>
   </object>
-  <object name="blocker" x="1568" y="1216" width="640" height="32">
+  <object name="blocker" x="224" y="384" width="32" height="64">
    <properties>
-    <property name="blocker" value="true"/>
-    <property name="color" value="white"/>
+    <property name="blocker" value=""/>
+    <property name="color" value=""/>
+   </properties>
+  </object>
+  <object name="blocker" x="448" y="384" width="32" height="64">
+   <properties>
+    <property name="blocker" value=""/>
+    <property name="color" value=""/>
+   </properties>
+  </object>
+  <object name="blocker" x="256" y="416" width="32" height="32">
+   <properties>
+    <property name="blocker" value=""/>
+    <property name="color" value=""/>
+   </properties>
+  </object>
+  <object name="blocker" x="416" y="416" width="32" height="32">
+   <properties>
+    <property name="blocker" value=""/>
+    <property name="color" value=""/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="enemies" width="70" height="50" visible="0">
-  <object name="shooter" gid="29" x="352" y="1024">
-   <properties>
-    <property name="color" value="green"/>
-    <property name="cooldown" value="1"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup name="enemies" width="20" height="15" visible="0"/>
 </map>
