@@ -290,7 +290,9 @@ def main():
     #pygame.mixer.music.set_volume(0.2)
     #pygame.mixer.music.play(-1)
     screen_size = (640, 480)
+    pygame.display.set_icon(pygame.image.load(os.path.join("resources", "troll_icon.png")))
     screen = pygame.display.set_mode(screen_size)
+    pygame.display.set_caption("Color Blind")
     
     pixelated_troll = pygame.image.load(os.path.join('resources', 'troll_menu.jpg'))
     pixelated_troll_location = (screen_size[0] - pixelated_troll.get_rect().width, 0)
