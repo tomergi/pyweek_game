@@ -28,13 +28,13 @@ class ColorDisplay(pygame.sprite.Sprite):
         self.surface_dict = {}
         
         self.surface_dict["red"] = pygame.Surface(ColorDisplay.tile_dimensions)
-        self.surface_dict["red"].fill((255,0,0))
+        self.surface_dict["red"].fill((184,37,53))
         self.surface_dict["green"] = pygame.Surface(ColorDisplay.tile_dimensions)
-        self.surface_dict["green"].fill((0,255,0))
+        self.surface_dict["green"].fill((121,191,29))
         self.surface_dict["blue"] = pygame.Surface(ColorDisplay.tile_dimensions)
-        self.surface_dict["blue"].fill((0,0,255))
+        self.surface_dict["blue"].fill((18,121,174))
         self.surface_dict["orange"] = pygame.Surface(ColorDisplay.tile_dimensions)
-        self.surface_dict["orange"].fill((255,128,0))
+        self.surface_dict["orange"].fill((229,145,49))
         
     def change_color(self, color):
         if self.current_color == color: # toggle off
