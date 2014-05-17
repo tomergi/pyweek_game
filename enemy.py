@@ -172,7 +172,6 @@ class BulletEnemy(MovingEnemy):
             print 'no direction for bullet, direction: %s' % direction
 
 def create_enemy(enemy_obj, *groups):
-    print 'creating enemy', enemy_obj
     if enemy_obj['name'] == 'mover':
         return SimpleEnemy(enemy_obj['color'], enemy_obj.px, enemy_obj.py, *groups)
     elif enemy_obj['name'] == 'shooter':
