@@ -285,6 +285,9 @@ def main():
     if len(sys.argv) > 1:
         start_level = int(sys.argv[1])
     pygame.init()
+    music = pygame.mixer.music.load(os.path.join("resources", "track.wav"))
+    pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.music.play(-1)
     screen_size = (640, 480)
     screen = pygame.display.set_mode(screen_size)
     option_selected = None
