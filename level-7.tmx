@@ -14,12 +14,12 @@
  </layer>
  <layer name="orange" width="15" height="40">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DwAU4oHqlgIPzPRGf7cAEmHJgaAD1cB4ufRxKgZfyOglEwmAAAqhsAUw==
+   eJxjYBgFo2DwAU4oHqlgJPufCQemBkAPV2qZOwqIB7SM31EwCgYTAACfcwBR
   </data>
  </layer>
  <layer name="green" width="15" height="40">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2BoARYceKCBIBSPNDBS/S0MxfQAgyF9j4JRMApIAwDQcgCH
+   eJxjYBgFo2BoARYceKCBIBQPVUBuGA51f5MLhKGYHmAwpO9RMApGAWkAAOXCAIs=
   </data>
  </layer>
  <layer name="red" width="15" height="40">
@@ -226,9 +226,9 @@
     <property name="death" value=""/>
    </properties>
   </object>
-  <object name="spike_orange" x="128" y="544" width="32" height="32">
+  <object name="spike_green" x="128" y="544" width="32" height="32">
    <properties>
-    <property name="color" value="orange"/>
+    <property name="color" value="green"/>
     <property name="death" value=""/>
    </properties>
   </object>
