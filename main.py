@@ -9,6 +9,11 @@ import time
 import color_display
 import os
 
+class MenuException(Exception):
+    pass
+class ExitException(Exception):
+    pass
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, start_x, start_y, *groups):
         super(Player, self).__init__(*groups)
@@ -189,8 +194,10 @@ class Game(object):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                    raise ExitException("game exit")
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     running = False
+                    raise MenuException("game exit")
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_F10:
                     self.player.god = not self.player.god
 
@@ -226,6 +233,7 @@ class Game(object):
                 time.sleep(1)
                 return True
 
+<<<<<<< HEAD
         raise Exception("game exit")
     
     def display_full_screen_picture(self, image_name):
@@ -234,6 +242,8 @@ class Game(object):
         self.screen.blit(image, image_location)
         
         
+=======
+>>>>>>> 3c573ae62d3c44ca174ebfc434b9078a13b6d132
 
     def toggle_layer(self, color):
         print "toggling %s" % color
@@ -249,23 +259,32 @@ class Game(object):
             self.enemies_by_color[color].visible = False
 
 def run_game(screen, screen_size, start_level=1):
-    level = start_level
-    win = True
-    while True:
-        game = Game('level-%d.tmx' % level, screen_size, screen)
-        win = game.loop()
-        if win:
-            level += 1
+    try:
+        level = start_level
+        win = True
+        while True:
+            game = Game('level-%d.tmx' % level, screen_size, screen)
+            win = game.loop()
+            if win:
+                level += 1
+    except MenuException as e:
+        return
     
 
 def display_instructions(screen):
     font = pygame.font.Font(None, 30)
-    text = """Objective:
-Reach to the flag in every level.
+    text = """In this game you are playing Juma the troll.
+Juma is diagnosed with SCB - Selective Color Blindness.
+He can choose the color he won't see!
+
+Objective:
+Help Juma reach to the flag in every level.
 
 Controls:
 Use arrow keys to move, space to jump.
 Numbers 1-4 toggle colors.
+
+Remeber! What you can't see can't kill you!
 press Esc at any time to return to menu.
 
 Press <space> to return""".splitlines()
@@ -328,4 +347,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except ExitException:
+        pass
