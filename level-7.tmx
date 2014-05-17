@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="40" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="basic_tileset.tsx"/>
+ <layer name="level" width="15" height="40">
+  <data encoding="base64" compression="zlib">
+   eJxjYBh6gINCTImdg00vSE4EisnRS4m9o3pH9Y7qHdU7qndU71DQS8/2AgwAAN7+BDE=
+  </data>
+ </layer>
+ <layer name="blue" width="15" height="40">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFQxUwD4B9fHS2cxRAwh0bHgXDA9Ayfvlw4FFAXYAvnEfz78gFADhRAPM=
+  </data>
+ </layer>
+ <layer name="orange" width="15" height="40">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2DwAU4oHqlgIPzPRGf7cAEmHJgaAD1cB4ufRxKgZfyOglEwmAAAqhsAUw==
+  </data>
+ </layer>
+ <layer name="green" width="15" height="40">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2BoARYceKCBIBSPNDBS/S0MxfQAgyF9j4JRMApIAwDQcgCH
+  </data>
+ </layer>
+ <layer name="red" width="15" height="40">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFwwUwomF86ljp4iIEYKOzfaNgFIyCoQnYceBRQF3AigMPVYBe7xGqB+kBABxzAF0=
+  </data>
+ </layer>
+</map>
