@@ -212,9 +212,9 @@ class Game(object):
             self.level.update(dt, self)
             self.level.set_focus(self.player.rect.x, self.player.rect.y)
             
-            self.color_display.print_on_screen()
             
             self.level.draw(self.screen)
+            self.color_display.print_on_screen()
 
             pygame.display.flip()
             if self.player.dead:
