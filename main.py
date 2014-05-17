@@ -155,25 +155,25 @@ class Game(object):
             for enemy_obj in self.level.layers['enemies'].match(color='red'):
                 enemy.create_enemy(enemy_obj, self.enemies_red)
         except Exception as e:
-            print e
+            pass
         self.enemies_green = tmx.SpriteLayer()
         try:
             for enemy_obj in self.level.layers['enemies'].match(color='green'):
                 enemy.create_enemy(enemy_obj, self.enemies_green)
         except Exception as e:
-            print e
+            pass
         self.enemies_blue = tmx.SpriteLayer()
         try:
             for enemy_obj in self.level.layers['enemies'].match(color='blue'):
                 enemy.create_enemy(enemy_obj, self.enemies_blue)
         except Exception as e:
-            print e
+            pass
         self.enemies_orange = tmx.SpriteLayer()
         try:
             for enemy_obj in self.level.layers['enemies'].match(color='orange'):
                 enemy.create_enemy(enemy_obj, self.enemies_orange)
         except Exception as e:
-            print e
+            pass
 
         self.level.layers.append(self.enemies_red)
         self.level.layers.append(self.enemies_green)
@@ -242,7 +242,6 @@ class Game(object):
         pygame.display.flip()
         
     def toggle_layer(self, color):
-        print "toggling %s" % color
         visible = not self.level.layers[color].visible
         if self.disabled_color != "":
             self.level.layers[self.disabled_color].visible = True
@@ -339,7 +338,6 @@ def main():
         if option_selected is not None:
             break
 
-    print option_selected
 
 
 if __name__ == '__main__':
